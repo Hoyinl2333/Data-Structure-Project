@@ -1,7 +1,6 @@
 # Data-Structure-Project
-Data Structure Project: Taxi Trajectory Anlysis
+Data Structure Project: Taxi Trajectory Analysis
 
-# Task 
-
-# Assign
-
+## Be Attention
+- download data
+- replace relative position 
