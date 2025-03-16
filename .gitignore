@@ -34,4 +34,4 @@ build/
 
 
 # Data files
-data/*.txt
+src/main/resources/data/*.txt
