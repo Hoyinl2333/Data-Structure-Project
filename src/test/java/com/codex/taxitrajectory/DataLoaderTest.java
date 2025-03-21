@@ -159,4 +159,42 @@ class DataLoaderTest {
         System.out.println("进行 " + LOOKUP_COUNT + " 次时间范围查找操作，总共耗时: " + duration + " 毫秒");
     }
 
+    @Test //用来单独查询某个ID的全部记录，检查清洗数据结果
+    void testQueryAllRecordsForTaxi() {
+        String taxiId = "1";
+
+        List<TaxiRecord> records = dataLoader.getRecordsByTaxiId(taxiId);
+
+        if (records.isEmpty()) {
+            System.out.println("未找到出租车 ID 为 " + taxiId + " 的记录。");
+        } else {
+            System.out.println("找到出租车 ID 为 " + taxiId + " 的记录，共 " + records.size() + " 条：");
+            for (TaxiRecord record : records) {
+                System.out.println("Taxi ID: " + record.getTaxiId() +
+                        ", Timestamp: " + record.getTimestamp() +
+                        ", Longitude: " + record.getLongitude() +
+                        ", Latitude: " + record.getLatitude());
+            }
+        }
+    }
+
+    @Test //测试查询一定时间范围内的出租出记录
+    void testQueryTimeRangeRecordsForTaxi() {
+        String taxiId = "1";
+        LocalDateTime start = LocalDateTime.of(2008, 2, 2, 0, 0);
+        LocalDateTime end = LocalDateTime.of(2008, 2, 2, 18, 0);
+        List<TaxiRecord> records = dataLoader.getRecordsByTimeRange(taxiId, start, end);
+
+        if (records.isEmpty()) {
+            System.out.println("未找到出租车 ID 为 " + taxiId + " 的记录。");
+        } else {
+            System.out.println("找到出租车 ID 为 " + taxiId + " 的记录，共 " + records.size() + " 条：");
+            for (TaxiRecord record : records) {
+                System.out.println("Taxi ID: " + record.getTaxiId() +
+                        ", Timestamp: " + record.getTimestamp() +
+                        ", Longitude: " + record.getLongitude() +
+                        ", Latitude: " + record.getLatitude());
+            }
+        }
+    }
 }

@@ -79,8 +79,10 @@ public class DataLoader {
                 LocalDateTime timestamp = LocalDateTime.parse(parts[1], FORMATTER);
                 double longitude = Double.parseDouble(parts[2]);
                 double latitude = Double.parseDouble(parts[3]);
-
-                records.put(timestamp, new TaxiRecord(taxiId, timestamp, longitude, latitude));
+                //去除经纬度为0的数据
+                if (longitude != 0 && latitude != 0) {
+                    records.put(timestamp, new TaxiRecord(taxiId, timestamp, longitude, latitude));
+                }
             }
             log.info("Loaded {} records for taxi ID: {}", records.size(), taxiId);
         } catch (IOException e) {
