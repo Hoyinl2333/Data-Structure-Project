@@ -12,4 +12,7 @@ public class TaxiService {
     public List<TaxiRecord> getRecordsByTimeRange(LocalDateTime start, LocalDateTime end) {
         return List.of();
     }
+    public List<TaxiRecord> getRecordsByTaxiIdAndTimeRange(String taxiId, LocalDateTime start, LocalDateTime end){
+        return List.of();
+    }
 }
