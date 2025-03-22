@@ -1,64 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- POM 模型版本，固定为 4.0.0 -->
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- 继承 Spring Boot 启动器父项目 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<!-- 从仓库查找父项目 -->
+		<relativePath/>
 	</parent>
+
+	<!-- 项目的唯一标识符 -->
 	<groupId>com.codex</groupId>
+	<!-- 项目的名称 -->
 	<artifactId>TaxiTrajectory</artifactId>
+	<!-- 项目的版本号 -->
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- 项目的显示名称 -->
 	<name>TaxiTrajectory</name>
+	<!-- 项目的描述信息 -->
 	<description>TaxiTrajectory</description>
+	<!-- 项目的主页 URL，这里留空 -->
 	<url/>
+
+	<!-- 项目的许可证信息，这里留空 -->
 	<licenses>
 		<license/>
 	</licenses>
+
+	<!-- 项目的开发者信息，这里留空 -->
 	<developers>
 		<developer/>
 	</developers>
+
+	<!-- 项目的源代码管理信息，这里留空 -->
 	<scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
 		<url/>
 	</scm>
+
+	<!-- 项目的属性配置 -->
 	<properties>
+		<!-- Java 版本 -->
 		<java.version>22</java.version>
 	</properties>
+
+	<!-- 项目的依赖配置 -->
 	<dependencies>
+		<!-- Spring Boot Web 启动器依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Spring Boot 测试启动器依赖，仅用于测试范围 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-			<!-- Lombok 依赖 -->
+		<!-- Lombok 依赖，提供编译时注解处理 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-
 	</dependencies>
 
+	<!-- 项目的构建配置 -->
 	<build>
 		<plugins>
+			<!-- Spring Boot Maven 插件，用于打包和运行 Spring Boot 应用 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>3.4.3</version>
 			</plugin>
+
+			<!-- Maven Surefire 插件，用于运行测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+				<configuration>
+					<!-- 配置 Mockito 代理，用于测试时的模拟功能 -->
+<!--					<argLine>-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"</argLine>-->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

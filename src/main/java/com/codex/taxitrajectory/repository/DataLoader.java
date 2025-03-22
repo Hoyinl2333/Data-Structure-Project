@@ -79,10 +79,12 @@ public class DataLoader {
                 LocalDateTime timestamp = LocalDateTime.parse(parts[1], FORMATTER);
                 double longitude = Double.parseDouble(parts[2]);
                 double latitude = Double.parseDouble(parts[3]);
+
                 //去除经纬度为0的数据
                 if (longitude != 0 && latitude != 0) {
                     records.put(timestamp, new TaxiRecord(taxiId, timestamp, longitude, latitude));
                 }
+
             }
             log.info("Loaded {} records for taxi ID: {}", records.size(), taxiId);
         } catch (IOException e) {
@@ -119,6 +121,14 @@ public class DataLoader {
      */
     public List<TaxiRecord> getRecordsByTimeRange(String taxiId, LocalDateTime start, LocalDateTime end) {
         return new ArrayList<>(getTaxiData(taxiId).subMap(start, true, end, true).values());
+    }
+
+    /**
+     * 获取所有出租车 ID
+     * @return 所有出租车 ID 的集合
+     */
+    public Collection<String> getAllTaxiIds() {
+        return taxiDataCache.keySet();
     }
 }
 
