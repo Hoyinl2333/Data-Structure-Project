@@ -2,7 +2,8 @@
 Data Structure Project: Taxi Trajectory Analysis
 
 ## Be Attention
-- download data and store it under data./
+- download data and store it under data.
+- maven configuration and reloading
 - bug existence
 
 ## Project Structure
