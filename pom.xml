@@ -90,10 +90,13 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.2</version>
 				<configuration>
-					<!-- 配置 Mockito 代理，用于测试时的模拟功能 -->
-<!--					<argLine>-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"</argLine>-->
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"
+					</argLine>
 				</configuration>
 			</plugin>
+
+			
 		</plugins>
 	</build>
 
