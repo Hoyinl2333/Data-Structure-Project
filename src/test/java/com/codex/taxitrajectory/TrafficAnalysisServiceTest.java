@@ -180,4 +180,41 @@ public class TrafficAnalysisServiceTest {
         System.out.println("testAnalyzeTrafficDensity_NoData 测试用例执行成功！");
     }
 /////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /// //////////////////////////////////// F5 单元测试代码 ///////////////////////////////////////
+    @Test
+    public void testAnalyzeTrafficFlowBetweenRegions() {
+        LocalDateTime start = LocalDateTime.of(2008, 2, 6, 0, 0);
+        LocalDateTime end = LocalDateTime.of(2008, 2, 6, 23, 59);
+        double topLeftLongitude1 = 116.6;
+        double topLeftLatitude1 = 40.1;
+        double bottomRightLongitude1 = 116.2;
+        double bottomRightLatitude1 = 39.8;
+        double topLeftLongitude2 = 117.0;
+        double topLeftLatitude2 = 40.5;
+        double bottomRightLongitude2 = 116.8;
+        double bottomRightLatitude2 = 40.3;
+
+        Collection<String> taxiIds = Arrays.asList("taxi1", "taxi2");
+        Mockito.when(mockDataLoader.getAllTaxiIds()).thenReturn(taxiIds);
+
+        List<TaxiRecord> records1 = new ArrayList<>();
+        records1.add(new TaxiRecord("taxi1", start, 116.4, 39.9)); // 在区域1内
+        records1.add(new TaxiRecord("taxi1", end, 116.9, 40.4));   // 在区域2内
+        Mockito.when(mockDataLoader.getRecordsByTimeRange("taxi1", start, end)).thenReturn(records1);
+
+        List<TaxiRecord> records2 = new ArrayList<>();
+        records2.add(new TaxiRecord("taxi2", start, 116.9, 40.4)); // 在区域2内
+        records2.add(new TaxiRecord("taxi2", end, 116.4, 39.9));   // 在区域1内
+        Mockito.when(mockDataLoader.getRecordsByTimeRange("taxi2", start, end)).thenReturn(records2);
+
+        int[] result = trafficAnalysisService.analyzeTrafficFlowBetweenRegions(start, end,
+                topLeftLongitude1, topLeftLatitude1, bottomRightLongitude1, bottomRightLatitude1,
+                topLeftLongitude2, topLeftLatitude2, bottomRightLongitude2, bottomRightLatitude2);
+
+        assertEquals(1, result[0]);
+        assertEquals(1, result[1]);
+    }
+/////////////////////////////////////////////////////////////////////////////////////////
 }
