@@ -52,7 +52,6 @@
 	</properties>
 
 	<!-- 项目的依赖配置 -->
-
 	<dependencies>
 		<!-- Spring Boot Web 启动器依赖 -->
 		<dependency>
@@ -73,20 +72,6 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>4.8.3</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>5.3.2</version>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<!-- 项目的构建配置 -->
@@ -105,8 +90,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.2</version>
 				<configuration>
-					<!-- 配置 Mockito 代理，用于测试时的模拟功能 -->
-<!--					<argLine>-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"</argLine>-->
 				</configuration>
 			</plugin>
 		</plugins>
