@@ -1,12 +1,15 @@
 package com.codex.taxitrajectory.model;
 
 import lombok.Data;
+
 import java.util.Objects;
+
 
 @Data
 public class GridCell {
     private int row;
     private int col;
+
 
     @Override
     public boolean equals(Object o) {
@@ -20,4 +23,5 @@ public class GridCell {
     public int hashCode() {
         return Objects.hash(row, col);
     }
+
 }

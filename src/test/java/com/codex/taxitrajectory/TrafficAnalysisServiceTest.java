@@ -1,6 +1,8 @@
 package com.codex.taxitrajectory;
 import com.codex.taxitrajectory.model.TaxiRecord;
+
 import com.codex.taxitrajectory.model.GridCell;
+
 import com.codex.taxitrajectory.repository.DataLoader;
 import com.codex.taxitrajectory.service.TrafficAnalysisService;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
 import java.util.*;
+
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,9 +32,11 @@ public class TrafficAnalysisServiceTest {
     }
 
 
+
     /// //////////////////////////////////// F3 单元测试代码 ///////////////////////////////////////
 
     // TODO: 完善查询，添加日志
+
     @Test
     public void testCountTaxisInRegion_AllTaxisInside() {
         LocalDateTime start = LocalDateTime.of(2008, 2, 6, 0, 0);
@@ -129,6 +135,7 @@ public class TrafficAnalysisServiceTest {
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
+
     /// //////////////////////////////////// F4 单元测试代码 ///////////////////////////////////////
     @Test
     public void testAnalyzeTrafficDensity_WithData() {
@@ -218,3 +225,4 @@ public class TrafficAnalysisServiceTest {
     }
 /////////////////////////////////////////////////////////////////////////////////////////
 }
+
