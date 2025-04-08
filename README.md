@@ -21,6 +21,14 @@ taxitrajectory/
 │   ├── resources/
 │   │   ├── data/                # 存放 CSV 数据文件
 │   │   ├── application.yml      # 配置文件
+|   |   ├── index.html              # 主HTML文件
+            ├── css/
+            │   └── styles.css          # 所有样式
+            ├── js/
+            │   ├── main.js             # 主程序入口
+            │   ├── utils/
+            │   │   └── map-utils.js    # 地图工具函数
+            │   └── features/           # 具体功能
 │   ├── test/                    # 测试代码
 │── pom.xml                       # Maven 依赖管理
 │── README.md                     # 项目说明
