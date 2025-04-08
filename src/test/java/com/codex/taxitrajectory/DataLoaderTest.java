@@ -161,7 +161,9 @@ class DataLoaderTest {
 
     @Test //用来单独查询某个ID的全部记录，检查清洗数据结果
     void testQueryAllRecordsForTaxi() {
+
         String taxiId = "9757";
+
 
         List<TaxiRecord> records = dataLoader.getRecordsByTaxiId(taxiId);
 
@@ -170,7 +172,10 @@ class DataLoaderTest {
         } else {
             System.out.println("找到出租车 ID 为 " + taxiId + " 的记录，共 " + records.size() + " 条：");
             for (TaxiRecord record : records) {
-                System.out.println(
+
+                System.out.println("Taxi ID: " + record.getTaxiId() +
+                        ", Timestamp: " + record.getTimestamp() +
+
                         ", Longitude: " + record.getLongitude() +
                         ", Latitude: " + record.getLatitude());
             }

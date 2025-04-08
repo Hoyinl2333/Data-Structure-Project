@@ -1,6 +1,8 @@
 package com.codex.taxitrajectory;
 import com.codex.taxitrajectory.model.TaxiRecord;
+
 import com.codex.taxitrajectory.model.GridCell;
+
 import com.codex.taxitrajectory.repository.DataLoader;
 import com.codex.taxitrajectory.service.TrafficAnalysisService;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.*;
+
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +29,7 @@ public class TrafficAnalysisServiceTest {
         mockDataLoader = Mockito.mock(DataLoader.class);
         trafficAnalysisService = new TrafficAnalysisService(mockDataLoader);
     }
+
 
 
     /// //////////////////////////////////// F3 单元测试代码 ///////////////////////////////////////
@@ -129,6 +133,7 @@ public class TrafficAnalysisServiceTest {
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
+
     /// //////////////////////////////////// F4 单元测试代码 ///////////////////////////////////////
     @Test
     public void testAnalyzeTrafficDensity_WithData() {
@@ -217,4 +222,6 @@ public class TrafficAnalysisServiceTest {
         assertEquals(1, result[1]);
     }
 /////////////////////////////////////////////////////////////////////////////////////////
+
 }
+

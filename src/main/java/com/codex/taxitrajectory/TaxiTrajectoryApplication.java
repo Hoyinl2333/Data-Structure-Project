@@ -10,4 +10,6 @@ public class TaxiTrajectoryApplication {
 		SpringApplication.run(TaxiTrajectoryApplication.class, args);
 	}
 
+
 }
+
