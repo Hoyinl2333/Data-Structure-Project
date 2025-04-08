@@ -1,6 +1,7 @@
 package com.codex.taxitrajectory.model;
 
 import lombok.Data;
+import java.util.Objects;
 
 import java.util.Objects;
 

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-
 import java.util.*;
 
 import java.util.Collections;
@@ -36,7 +35,6 @@ public class TrafficAnalysisServiceTest {
     /// //////////////////////////////////// F3 单元测试代码 ///////////////////////////////////////
 
     // TODO: 完善查询，添加日志
-
     @Test
     public void testCountTaxisInRegion_AllTaxisInside() {
         LocalDateTime start = LocalDateTime.of(2008, 2, 6, 0, 0);
@@ -224,5 +222,6 @@ public class TrafficAnalysisServiceTest {
         assertEquals(1, result[1]);
     }
 /////////////////////////////////////////////////////////////////////////////////////////
+
 }
 

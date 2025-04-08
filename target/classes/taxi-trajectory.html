@@ -1,195 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>出租车轨迹地图</title>
-    <style>
-        /* 原有的样式保持不变 */
-        html, body {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
-
-        #container {
-          width: 100%;
-          height: 70%;
-        }
-
-        body {
-          font-family: Arial, sans-serif;
-          padding: 20px;
-        }
-
-        input[type="text"] {
-          padding: 8px;
-          margin-right: 10px;
-        }
-
-        button {
-          padding: 8px 15px;
-          background-color: #007BFF;
-          color: white;
-          border: none;
-          cursor: pointer;
-        }
-
-        button:hover {
-          background-color: #0056b3;
-        }
-
-        #result {
-          margin-top: 20px;
-        }
-
-        .dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: red;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入百度地图API -->
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=TjH2DBugCdwnk9PDVFl4B0wF0CC0v47N"></script>
 </head>
-
 <body>
-<!-- 出租车轨迹查询表单 -->
-<div style="text-align: center; margin: 20px 0;">
-    <h1>出租车轨迹查询</h1>
-    <input type="text" id="taxiId" placeholder="请输入出租车 ID">
-    <button onclick="fetchTaxiTrajectory()">查询</button>
-    <div id="result"></div>
+<h1>出租车数据分析系统</h1>
+
+<!-- F1: 出租车轨迹查询 -->
+<div class="search-section">
+    <h3>F1: 出租车轨迹查询</h3>
+    <div class="form-row">
+        <label for="taxiId">出租车ID:</label>
+        <input type="text" id="taxiId" placeholder="请输入出租车ID">
+        <button id="queryTrajectoryBtn">查询轨迹</button>
+    </div>
 </div>
 
-<!-- 地图容器 -->
+<!-- F3: 区域范围查找 -->
+<div class="search-section">
+    <h3>F3: 区域范围查找</h3>
+    <div class="form-row">
+        <label>时间段:</label>
+        <input type="datetime-local" id="startTime">
+        <span>至</span>
+        <input type="datetime-local" id="endTime">
+    </div>
+    <div class="form-row">
+        <label>左上角坐标:</label>
+        <input type="text" id="topLeftLng" placeholder="经度">
+        <input type="text" id="topLeftLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>右下角坐标:</label>
+        <input type="text" id="bottomRightLng" placeholder="经度">
+        <input type="text" id="bottomRightLat" placeholder="纬度">
+    </div>
+    <button id="areaSearchBtn">区域查找</button>
+</div>
+
+<!-- F4: 区域车流密度分析 -->
+<div class="search-section">
+    <h3>F4: 区域车流密度分析</h3>
+    <div class="form-row">
+        <label>时间段:</label>
+        <input type="datetime-local" id="densityStartTime">
+        <span>至</span>
+        <input type="datetime-local" id="densityEndTime">
+    </div>
+    <div class="form-row">
+        <label>左上角坐标:</label>
+        <input type="text" id="densityTopLeftLng" placeholder="经度">
+        <input type="text" id="densityTopLeftLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>右下角坐标:</label>
+        <input type="text" id="densityBottomRightLng" placeholder="经度">
+        <input type="text" id="densityBottomRightLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>网格半径(r):</label>
+        <input type="number" id="gridRadius" placeholder="网格半径" value="0.001">
+    </div>
+    <button id="densityAnalysisBtn">密度分析</button>
+</div>
+
+<div id="result"></div>
 <div id="container"></div>
 
-<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=TjH2DBugCdwnk9PDVFl4B0wF0CC0v47N"></script>
-<script>
-    var map = new BMapGL.Map("container");
-    var centerPoint = new BMapGL.Point(116.404, 39.915);
-    map.centerAndZoom(centerPoint, 11);
-    map.enableScrollWheelZoom(true);
-
-    var overlays = [];
-
-    function fetchTaxiTrajectory() {
-        const taxiId = document.getElementById('taxiId').value;
-        if (taxiId === '') {
-            alert('请输入出租车 ID');
-            return;
-        }
-
-        const url = `http://localhost:8080/taxi/${taxiId}`;
-        fetch(url)
-            .then(response => {
-                if (!response.ok) throw new Error('网络响应异常');
-                return response.json();
-            })
-            .then(data => {
-                clearOverlays();
-
-                // 批量转换坐标
-                const points = [];
-                data.forEach(record => {
-                    // 假设原始数据是WGS84或GCJ02坐标系
-                    points.push(new BMapGL.Point(record.longitude, record.latitude));
-                });
-
-                // 使用百度地图坐标转换器进行批量转换
-                // 注释：这里假设原始坐标是GCJ02坐标系(高德、腾讯等使用的坐标系)，转换为百度坐标系BD09
-                if (points.length > 0) {
-                    var convertor = new BMapGL.Convertor();
-                    // 由于百度坐标转换API一次最多支持10个点，所以需要分批转换
-                    for (let i = 0; i < points.length; i += 10) {
-                        let batchPoints = points.slice(i, i + 10);
-                        // 注释：第二个参数3表示GCJ02坐标，第三个参数5表示BD09坐标
-                        convertor.translate(batchPoints, 3, 5, function(data) {
-                            if (data.status === 0) {
-                                // 转换成功，添加到地图上
-                                data.points.forEach(point => {
-                                    addDotToMap(point);
-                                });
-
-                                // 如果是第一批点，将地图中心设置为第一个点
-                                if (i === 0 && data.points.length > 0) {
-                                    map.setCenter(data.points[0]);
-                                }
-                            } else {
-                                console.error('坐标转换失败', data.status);
-                                // 转换失败时，使用原始坐标
-                                batchPoints.forEach(point => {
-                                    addDotToMap(point);
-                                });
-                            }
-                        });
-                    }
-                }
-            })
-            .catch(error => {
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = `<p>查询出错：${error.message}</p>`;
-                clearOverlays(); // 清除之前可能存在的覆盖物
-            });
-    }
-
-    function addDotToMap(point) {
-        var dotOverlay = new CustomOverlay(point);
-        map.addOverlay(dotOverlay);
-        overlays.push(dotOverlay);
-    }
-
-    function clearOverlays() {
-        for (var i = 0; i < overlays.length; i++) {
-            map.removeOverlay(overlays[i]);
-        }
-        overlays = [];
-    }
-
-    function adjustDotsSize(zoomLevel) {
-        var size = Math.max(4, 12 - zoomLevel); // 根据缩放级别调整大小
-        for (var i = 0; i < overlays.length; i++) {
-            overlays[i].setSize(size);
-        }
-    }
-
-    map.addEventListener("zoomend", function () {
-        adjustDotsSize(map.getZoom());
-    });
-
-    // 自定义覆盖物类
-    function CustomOverlay(point){
-        this._point = point;
-    }
-
-    CustomOverlay.prototype = new BMapGL.Overlay();
-
-    CustomOverlay.prototype.initialize = function(map){
-        this._map = map;
-        var div = document.createElement("div");
-        div.className = "dot";
-        div.style.position = "absolute";
-        map.getPanes().labelPane.appendChild(div);
-        this._div = div;
-        return div;
-    }
-
-    CustomOverlay.prototype.draw = function(){
-        var position = this._map.pointToOverlayPixel(this._point);
-        this._div.style.left = position.x - 4 + "px"; // 调整以使点居中
-        this._div.style.top = position.y - 4 + "px";
-    }
-
-    CustomOverlay.prototype.setSize = function(size){
-        this._div.style.width = size + "px";
-        this._div.style.height = size + "px";
-        this.draw(); // 重新绘制以确保点居中
-    }
-</script>
+<!-- 引入JavaScript文件 -->
+<script src="js/utils/map-utils.js"></script>
+<script src="js/features/f1-trajectory.js"></script>
+<script src="js/features/f2-zoom.js"></script>
+<script src="js/features/f3-area-search.js"></script>
+<script src="js/features/f4-density.js"></script>
+<!-- 预留F5-F9的脚本引用 -->
+<script src="js/features/f5.js"></script>
+<script src="js/features/f6.js"></script>
+<script src="js/features/f7.js"></script>
+<script src="js/features/f8.js"></script>
+<script src="js/features/f9.js"></script>
+<script src="js/main.js"></script>
 </body>
-
 </html>
-
