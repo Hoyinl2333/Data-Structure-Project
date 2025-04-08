@@ -1,7 +1,9 @@
 package com.codex.taxitrajectory.controller;
 
 import com.codex.taxitrajectory.model.TaxiRecord;
+
 import com.codex.taxitrajectory.repository.DataLoader;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/taxi")
 public class TaxiController {
+
 
     private final DataLoader dataLoader;
 
@@ -26,3 +29,4 @@ public class TaxiController {
         return ResponseEntity.ok(records);
     }
 }
+

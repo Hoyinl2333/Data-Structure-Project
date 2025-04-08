@@ -48,7 +48,8 @@
 	<!-- 项目的属性配置 -->
 	<properties>
 		<!-- Java 版本 -->
-		<java.version>21</java.version>
+
+		<java.version>22</java.version>
 	</properties>
 
 	<!-- 项目的依赖配置 -->
@@ -74,6 +75,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -86,6 +88,7 @@
 			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
+
 
 	</dependencies>
 
@@ -105,10 +108,14 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.2</version>
 				<configuration>
-					<!-- 配置 Mockito 代理，用于测试时的模拟功能 -->
-<!--					<argLine>-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"</argLine>-->
+
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/mockito/mockito-core/5.14.2/mockito-core-5.14.2.jar"
+					</argLine>
 				</configuration>
 			</plugin>
+
+			
 		</plugins>
 	</build>
 
