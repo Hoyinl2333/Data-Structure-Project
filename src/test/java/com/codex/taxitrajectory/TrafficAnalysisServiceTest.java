@@ -62,7 +62,7 @@ public class TrafficAnalysisServiceTest {
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000; // 转换为毫秒
         System.out.println("执行一次countTaxisInRegion,总共耗时: " + duration + " 毫秒");
-
+        System.out.println(result);
         assertEquals(2, result);
     }
 
@@ -87,6 +87,7 @@ public class TrafficAnalysisServiceTest {
         when(mockDataLoader.getRecordsByTimeRange("taxi2", start, end)).thenReturn(records2);
 
         int result = trafficAnalysisService.countTaxisInRegion(start, end, topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
+        System.out.println(result);
         assertEquals(0, result);
     }
 
@@ -111,6 +112,7 @@ public class TrafficAnalysisServiceTest {
         when(mockDataLoader.getRecordsByTimeRange("taxi2", start, end)).thenReturn(records2);
 
         int result = trafficAnalysisService.countTaxisInRegion(start, end, topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
+        System.out.println(result);
         assertEquals(1, result);
     }
 
@@ -127,6 +129,7 @@ public class TrafficAnalysisServiceTest {
         when(mockDataLoader.getAllTaxiIds()).thenReturn(taxiIds);
 
         int result = trafficAnalysisService.countTaxisInRegion(start, end, topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
+        System.out.println(result);
         assertEquals(0, result);
     }
 
