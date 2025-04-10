@@ -5,6 +5,7 @@ import com.codex.taxitrajectory.model.TaxiRecord;
 import com.codex.taxitrajectory.repository.DataLoader;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 import static com.codex.taxitrajectory.utils.GeoUtils.isInRectangle;
@@ -28,8 +29,6 @@ public class TrafficAnalysisService {
 
     // TODO: F3.区域范围查找
 
-
-
     /**
      * F3. 区域范围查找：统计特定时间段内矩形区域的出租车数目。
      * @param start 开始时间
@@ -44,7 +43,7 @@ public class TrafficAnalysisService {
                                   double topLeftLongitude, double topLeftLatitude,
                                   double bottomRightLongitude, double bottomRightLatitude) {
 
-        java.util.Collection<String> allTaxiIds = dataLoader.getAllTaxiIds();
+        Collection<String> allTaxiIds = dataLoader.getAllTaxiIds();
         int taxiCount = 0;
 
         for (String taxiId : allTaxiIds) {
