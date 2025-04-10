@@ -6,6 +6,8 @@ import com.codex.taxitrajectory.model.TaxiRecord;
 import com.codex.taxitrajectory.model.GridCell;
 import com.codex.taxitrajectory.repository.DataLoader;
 import com.codex.taxitrajectory.utils.GeoUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -21,6 +23,9 @@ import static com.codex.taxitrajectory.utils.GeoUtils.isInRectangle;
  * - F5 区域关联分析1：统计两个指定区域间的车流量变化。
  * - F6 区域关联分析2：统计某个区域与其他区域的车流变化。
  */
+@Slf4j
+
+@Component
 public class TrafficAnalysisService {
 
     private final DataLoader dataLoader;
