@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出租车轨迹地图</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- 引入百度地图API -->
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=TjH2DBugCdwnk9PDVFl4B0wF0CC0v47N"></script>
+</head>
+<body>
+<h1>出租车数据分析系统</h1>
+
+<!-- F1: 出租车轨迹查询 -->
+<div class="search-section">
+    <h3>F1: 出租车轨迹查询</h3>
+    <div class="form-row">
+        <label for="taxiId">出租车ID:</label>
+        <input type="text" id="taxiId" placeholder="请输入出租车ID">
+        <button id="queryTrajectoryBtn">查询轨迹</button>
+    </div>
+</div>
+
+<!-- F3: 区域范围查找 -->
+<div class="search-section">
+    <h3>F3: 区域范围查找</h3>
+    <div class="form-row">
+        <label>时间段:</label>
+        <input type="datetime-local" id="startTime">
+        <span>至</span>
+        <input type="datetime-local" id="endTime">
+    </div>
+    <div class="form-row">
+        <label>左上角坐标:</label>
+        <input type="text" id="topLeftLng" placeholder="经度">
+        <input type="text" id="topLeftLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>右下角坐标:</label>
+        <input type="text" id="bottomRightLng" placeholder="经度">
+        <input type="text" id="bottomRightLat" placeholder="纬度">
+    </div>
+    <button id="areaSearchBtn">区域查找</button>
+</div>
+
+<!-- F4: 区域车流密度分析 -->
+<div class="search-section">
+    <h3>F4: 区域车流密度分析</h3>
+    <div class="form-row">
+        <label>时间段:</label>
+        <input type="datetime-local" id="densityStartTime">
+        <span>至</span>
+        <input type="datetime-local" id="densityEndTime">
+    </div>
+    <div class="form-row">
+        <label>左上角坐标:</label>
+        <input type="text" id="densityTopLeftLng" placeholder="经度">
+        <input type="text" id="densityTopLeftLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>右下角坐标:</label>
+        <input type="text" id="densityBottomRightLng" placeholder="经度">
+        <input type="text" id="densityBottomRightLat" placeholder="纬度">
+    </div>
+    <div class="form-row">
+        <label>网格半径(r):</label>
+        <input type="number" id="gridRadius" placeholder="网格半径" value="0.001">
+    </div>
+    <button id="densityAnalysisBtn">密度分析</button>
+</div>
+
+<div id="result"></div>
+<div id="container"></div>
+
+<!-- 引入JavaScript文件 -->
+<script src="js/utils/map-utils.js"></script>
+<script src="js/features/f1-trajectory.js"></script>
+<script src="js/features/f2-zoom.js"></script>
+<script src="js/features/f3-area-search.js"></script>
+<script src="js/features/f4-density.js"></script>
+<!-- 预留F5-F9的脚本引用 -->
+<script src="js/features/f5.js"></script>
+<script src="js/features/f6.js"></script>
+<script src="js/features/f7.js"></script>
+<script src="js/features/f8.js"></script>
+<script src="js/features/f9.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

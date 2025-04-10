@@ -4,6 +4,9 @@ import com.codex.taxitrajectory.utils.TaxiDataLoadException;
 import com.codex.taxitrajectory.model.TaxiRecord;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.stereotype.Component;
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * 使用 TreeMap 存储时间戳排序的数据，以支持高效的时间范围查询。
  */
 @Slf4j
+
+@Component // 添加该注解，让 Spring 管理此类
+
 public class DataLoader {
     private static final String DATA_FOLDER = "src/main/resources/data/";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -150,5 +156,6 @@ public class DataLoader {
 
         return allRecords;
     }
+
 }
 
