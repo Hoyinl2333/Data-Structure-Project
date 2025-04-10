@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.codex.taxitrajectory.utils.GeoUtils.isInRectangle;
 
