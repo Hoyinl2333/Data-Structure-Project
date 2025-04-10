@@ -109,6 +109,11 @@ public class DataLoader {
         return taxiDataCache.computeIfAbsent(taxiId, this::loadTaxiData);
     }
 
+
+    //////////////////////////////////////////////////////////////////////
+    /*                       以下是可以调用的接口                           */
+    /// //////////////////////////////////////////////////////////////////
+
     /**
      * 获取指定出租车的所有轨迹数据。
      * @param taxiId 出租车 ID
@@ -135,6 +140,21 @@ public class DataLoader {
      */
     public Collection<String> getAllTaxiIds() {
         return taxiDataCache.keySet();
+    }
+
+    /**
+     * 获取所有出租车的轨迹数据。
+     * @return 所有出租车的轨迹数据列表
+     */
+    public List<TaxiRecord> getAllTaxiRecords() {
+        List<TaxiRecord> allRecords = new ArrayList<>();
+
+        // 由于taxiFile确保所有出租车数据都被加载
+        for (String taxiId : taxiFileIndex.keySet()) {
+            allRecords.addAll(getTaxiData(taxiId).values());
+        }
+
+        return allRecords;
     }
 
 }
