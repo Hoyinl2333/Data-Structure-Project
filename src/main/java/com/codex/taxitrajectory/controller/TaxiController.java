@@ -44,7 +44,7 @@ public class TaxiController {
 
         int taxiCount = trafficAnalysisService.countTaxisInRegion(
                 start, end, topLeftLongitude, topLeftLatitude, bottomRightLongitude, bottomRightLatitude);
-
+        System.out.println(taxiCount);
         return ResponseEntity.ok(taxiCount);
     }
 }
