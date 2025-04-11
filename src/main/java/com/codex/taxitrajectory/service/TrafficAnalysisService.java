@@ -10,8 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.codex.taxitrajectory.utils.GeoUtils.isInRectangle;
 
@@ -37,8 +39,6 @@ public class TrafficAnalysisService {
 
     // TODO: F3.区域范围查找
 
-
-
     /**
      * F3. 区域范围查找：统计特定时间段内矩形区域的出租车数目。
      * @param start 开始时间
@@ -53,7 +53,7 @@ public class TrafficAnalysisService {
                                   double topLeftLongitude, double topLeftLatitude,
                                   double bottomRightLongitude, double bottomRightLatitude) {
 
-        java.util.Collection<String> allTaxiIds = dataLoader.getAllTaxiIds();
+        Collection<String> allTaxiIds = dataLoader.getAllTaxiIds();
         int taxiCount = 0;
 
         for (String taxiId : allTaxiIds) {
@@ -76,9 +76,6 @@ public class TrafficAnalysisService {
 
 
     // TODO: F4.车流密度分析
-
-
-
 
 
     /**
@@ -190,7 +187,7 @@ public class TrafficAnalysisService {
         return new int[]{flowFromRegion1ToRegion2, flowFromRegion2ToRegion1};
     }
 
-
+    //TODO: F5.区域关连分析1
 
 
     // TODO: F6.区域关联分析2
